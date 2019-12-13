@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = () => {
+            document.getElementById("submitBtn").addEventListener("click", function(event){
+                event.preventDefault();
+                let firstName = document.getElementById("firstname").value;
+                let lastName = document.getElementById("lastname").value;
+                let startDate = document.getElementById("start").value;
+                let endDate = document.getElementById("end").value;
+                let timeZone = document.getElementById("timeZone").value;
+                let department = document.getElementById("department").value;
+                if(localStorage.getItem("firstNames")) {
+                    localStorage.setItem("firstNames", localStorage.getItem("firstNames") + `,${firstName}`);
+                } else {
+                    localStorage.setItem("firstNames", firstName);
+                }
+
+                if(localStorage.getItem("lastNames")) {
+                    localStorage.setItem("lastNames", localStorage.getItem("lastNames") + `,${lastName}`);
+                } else {
+                    localStorage.setItem("lastNames", lastName);
+                }
+
+                if(localStorage.getItem("startDates")) {
+                    localStorage.setItem("startDates", localStorage.getItem("startDates") + `,${startDate}`);
+                } else {
+                    localStorage.setItem("startDates", startDate);
+                }
+
+                if(localStorage.getItem("endDates")) {
+                    localStorage.setItem("endDates", localStorage.getItem("endDates") + `,${endDate}`);
+                } else {
+                    localStorage.setItem("endDates", endDate);
+                }
+
+                if(localStorage.getItem("timeZones")) {
+                    localStorage.setItem("timeZones", localStorage.getItem("timeZones") + `,${timeZone}`);
+                } else {
+                    localStorage.setItem("timeZones", timeZone);
+                }
+
+                if(localStorage.getItem("departments")) {
+                    localStorage.setItem("departments", localStorage.getItem("departments") + `,${department}`);
+                } else {
+                    localStorage.setItem("departments", department);
+                }
+
+                alert("Data saved!");
+                location.reload();
+            });
+
+            let firstNames = localStorage.getItem("firstNames");
+            let lastNames = localStorage.getItem("lastNames");
+            let startDates = localStorage.getItem("startDates");
+            let endDates = localStorage.getItem("endDates");
+            let timeZones = localStorage.getItem("timeZones");
+            let departments = localStorage.getItem("departments");
+            for(let i = 0; i < firstNames.split(",").length; i++){
+                document.getElementById("content").innerHTML += `<tr>
+                    <td>${firstNames.split(",")[i]}</td>
+                    <td>${lastNames.split(",")[i]}</td>
+                    <td>${startDates.split(",")[i]}</td>
+                    <td>${endDates.split(",")[i]}</td>
+                    <td>${timeZones.split(",")[i]}</td>
+                    <td>${departments.split(",")[i]}</td>
+                    
+                </tr>`;
+            }
+        };
+    </script>
+</head>
+<body>
+    <form action="/">
+        First name:<br>
+        <input type="text" name="firstname" id ="firstname">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname" id ="lastname">
+        <br>
+        Start Date:<br>
+        <input type="date" id="start" name="start"
+        value="2019-12-12" min="2019-12-12" max="2022-12-31">
+        <br>
+        End Date:<br>
+        <input type="date" id="end" name="end"
+        value="2019-12-12"
+        min="2019-12-12" max="2022-12-31">
+        <br>
+            <select id="timeZone">
+                <option value="PST">PST</option>
+                <option value="EST">EST</option>
+                <option value="CST">CST</option>
+                <option value="MST">MST</option>
+            </select>
+        <br>
+        Department:<br>
+        <input type="text" name="department" id="department">
+        <br>
+        
+        <input type="submit" value="Submit" id="submitBtn">
+      </form> 
+
+      <p  >
+            <table style="width:100%" id="content">
+                    <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th> 
+                            <th>StartDate</th>
+                            <th>EndDate</th>
+                            <th>TimeZone</th>
+                            <th>Department</th>
+                          </tr>
+                </table>
+      </p>
+</body>
+</html>
